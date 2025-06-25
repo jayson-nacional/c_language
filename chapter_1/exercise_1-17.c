@@ -8,7 +8,6 @@ int get_line(char s[], int lim);
 int main() {
   int current_len;
   char current_line[MAXLINE];
-  char longest_line[MAXLINE];
 
   while ((current_len = get_line(current_line, MAXLINE)) > 0) {
     if (current_len > MIN_PRINTABLE_LEN) {
