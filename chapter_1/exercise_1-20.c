@@ -12,7 +12,7 @@ int main() {
     if (c == '\t') {
       int no_of_spaces = TAB_STOP - ((len - 1) % TAB_STOP);
       for (; no_of_spaces > 0; no_of_spaces--)
-        putchar('*');
+        putchar(' ');
 
       len = 0;
     } else if (c == '\n') {
