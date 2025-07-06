@@ -1,36 +1,72 @@
 #include <stdio.h>
 
-#define LINE_WIDTH 20
+#define LINE_LENGTH 20
 
 int main() {
-  char line[LINE_WIDTH];
+  char line[LINE_LENGTH];
 
-  int index = 0;
+  int char_index = 0;
   int c;
-  while ((c = getchar()) != EOF) {
-    line[index] = c;
-    index++;
+  while ((c = getchar()) != '\n') {
+    line[char_index] = c;
 
-    int i, j;
-    if (c == '\n' || index == LINE_WIDTH - 1) { // end of line reached
-      for (i = index; line[i] != ' ' || line[i] != '\t'; i--)
-        ;
+    if (char_index == LINE_LENGTH - 1) {
+      int last_blank_index = LINE_LENGTH - 1;
+      int last_non_blank_index = LINE_LENGTH - 1;
 
-      for (j = index; line[j] == ' ' || line[j] == '\t'; j--)
-        ;
+      while (line[char_index] != ' ' && line[char_index] != '\t')
+        last_blank_index = --char_index;
 
-      // j would mean the last non-blank character before line_width
+      // edge case there is no space at all
+      if (last_blank_index < 0) {
+        for (int i = 0; i < LINE_LENGTH; i++) {
+          putchar(line[i]);
+        }
 
-      line[++j] = '\0';
-      printf("%s\n", line);
+        putchar('\n');
+        char_index = 0;
+      } else {
+        while (line[char_index] == ' ' || line[char_index] == '\t' ||
+               line[char_index] == '\0')
+          last_non_blank_index = --char_index;
 
-      // repopulate the truncated chars to line for next reprinting
-      j++;
-      for (index = 0; j < LINE_WIDTH - 1; j++) {
-        line[index++] = line[j];
+        // print
+        for (int i = 0; i <= last_non_blank_index; i++) {
+          putchar(line[i]);
+        }
+        putchar('\n');
+
+        // copy the remaining lines to line
+        // edge case is if last blank is same index as line length
+        if (last_blank_index == LINE_LENGTH - 1) {
+          char_index = 0;
+
+          for (int i = char_index; i < LINE_LENGTH; i++) {
+            line[i] = '\0';
+          }
+        } else {
+          char_index = 0;
+          for (int i = last_blank_index + 1; i <= LINE_LENGTH - 1; i++) {
+            line[char_index] = line[i];
+            char_index++;
+          }
+
+          for (int i = char_index; i < LINE_LENGTH; i++) {
+            line[i] = '\0';
+          }
+        }
       }
     }
+
+    char_index++;
   }
+
+  if (char_index > 0) {
+    for (int i = 0; i < char_index; i++)
+      putchar(line[i]);
+  }
+
+  putchar('\n');
 
   return 0;
 }
