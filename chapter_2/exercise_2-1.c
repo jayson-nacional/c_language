@@ -48,8 +48,8 @@ int main() {
   printf("---------\n");
 
   printf("UNSIGNED LONG range\n");
-  printf("MIN: %ld\n", 0L);
-  printf("MAX: %lu\n", ULONG_MAX);
+  printf("MIN: %ul\n", 0);
+  printf("MAX: %ul\n", ULONG_MAX);
   printf("---------\n");
 
   return 0;
