@@ -14,7 +14,7 @@ int main() {
 unsigned rightrot(int x, int n) {
   int bit_mask_position = 0;
   unsigned original_x = x;
-  while ((x = x >> 1) != 0) {
+  while ((x >>= 1) != 0) {
     bit_mask_position++;
   }
 
